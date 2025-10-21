@@ -2,6 +2,11 @@
 
 这是一个快速开始和故障排除指南，帮助你在 5 分钟内运行 Bash Copilot。
 
+**🍎 macOS 用户特别提示:**
+- 使用 `~/.bash_profile` 而不是 `~/.bashrc`
+- 推荐使用 `ctrl-g` 或 `f2` 快捷键（`ctrl-o` 在 Mac 上不工作）
+- 详见 [MAC_SETUP.md](MAC_SETUP.md)
+
 ## 立即开始 (3 步)
 
 ### 1. 安装
@@ -17,7 +22,9 @@ bash-copilot config --api-key YOUR_OPENAI_API_KEY
 
 ### 3. 加载并使用
 ```bash
-source ~/.bashrc
+source ~/.bashrc          # Linux
+source ~/.bash_profile    # macOS
+
 # 现在输入一些文本，然后按 Ctrl+Space
 ```
 
@@ -33,7 +40,8 @@ cd /path/to/bash-copilot
 
 #### 步骤 1: 重新加载配置
 ```bash
-source ~/.bashrc
+source ~/.bashrc          # Linux
+source ~/.bash_profile    # macOS
 ```
 **90% 的问题通过这一步解决！**
 
@@ -57,7 +65,8 @@ source ~/.bashrc
 某些终端不支持 Ctrl+Space，试试其他的：
 ```bash
 export BASH_COPILOT_HOTKEY=ctrl-g
-source ~/.bashrc
+source ~/.bashrc          # Linux
+source ~/.bash_profile    # macOS
 ```
 
 或使用功能键（最保险）：

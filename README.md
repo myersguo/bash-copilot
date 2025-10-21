@@ -169,19 +169,24 @@ bash-copilot hotkeys
 
 **Quick change using presets:**
 ```bash
-# Add to your ~/.bashrc
-export BASH_COPILOT_HOTKEY=ctrl-g    # Use Ctrl+G
+# Linux: Add to your ~/.bashrc
+# macOS: Add to your ~/.bash_profile
+export BASH_COPILOT_HOTKEY=ctrl-g    # Use Ctrl+G (recommended)
 export BASH_COPILOT_HOTKEY=alt-c     # Use Alt+C
 export BASH_COPILOT_HOTKEY=f2        # Use F2
 
 # Then reload
-source ~/.bashrc
+source ~/.bashrc                     # Linux
+source ~/.bash_profile               # macOS
 ```
 
 **Available preset hotkeys:**
-- `ctrl-space` (default), `ctrl-g`, `ctrl-p`, `ctrl-o`, `ctrl-k`
+- `ctrl-space` (default), `ctrl-g`, `ctrl-p`, `ctrl-k` ⭐ **Recommended**
 - `alt-c`, `alt-a`, `alt-s`, `alt-space`
-- `f2`, `f3`, `f4`
+- `f2`, `f3`, `f4` ⭐ **Most reliable**
+
+**⚠️ Note for macOS users:** Some keys like `ctrl-o` may not work due to system/terminal bindings.
+**Recommended for Mac:** Use `ctrl-g` or `f2`. See [MAC_SETUP.md](MAC_SETUP.md) for details.
 
 For detailed hotkey configuration including custom bindings, see [HOTKEYS.md](HOTKEYS.md)
 
