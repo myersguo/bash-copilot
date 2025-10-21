@@ -13,10 +13,24 @@ Bash Copilot brings the power of AI to your command line, helping you write bash
 - 🎯 **Context-Aware**: Understands your current working directory and environment
 - 🔒 **Secure**: API keys stored locally in your home directory
 
+## 🆘 Hotkey Not Working?
+
+If the hotkey isn't responding, try this **one-line fix** first:
+```bash
+source ~/.bashrc
+```
+
+Still not working? Run the diagnostic tool:
+```bash
+./diagnose.sh
+```
+
+Or see the [Quick Start Guide](QUICKSTART.md) and [Troubleshooting Guide](TROUBLESHOOTING.md).
+
 ## Requirements
 
 - Python 3.6+
-- Bash shell
+- Bash shell (3.2+, works best with 4.0+)
 - OpenAI API key (or compatible API endpoint)
 
 ## Installation

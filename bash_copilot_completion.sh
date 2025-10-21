@@ -6,35 +6,69 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASH_COPILOT_BIN="${SCRIPT_DIR}/bash_copilot.py"
 
-# Predefined hotkey presets
-# Users can set BASH_COPILOT_HOTKEY to one of these preset names or a custom binding
-declare -A HOTKEY_PRESETS=(
-    ["ctrl-space"]="\C-@"      # Ctrl+Space (default)
-    ["ctrl-g"]="\C-g"          # Ctrl+G
-    ["ctrl-p"]="\C-p"          # Ctrl+P
-    ["ctrl-o"]="\C-o"          # Ctrl+O
-    ["ctrl-k"]="\C-k"          # Ctrl+K
-    ["alt-c"]="\ec"            # Alt+C
-    ["alt-a"]="\ea"            # Alt+A
-    ["alt-s"]="\es"            # Alt+S
-    ["alt-space"]="\e "        # Alt+Space
-    ["f2"]="\eOP"              # F2
-    ["f3"]="\eOQ"              # F3
-    ["f4"]="\eOR"              # F4
-)
+# Function to convert preset name to key binding
+# This uses case statement for compatibility with older bash versions
+_get_hotkey_binding() {
+    local preset="$1"
+    case "$preset" in
+        ctrl-space)
+            echo "\C-@"
+            ;;
+        ctrl-g)
+            echo "\C-g"
+            ;;
+        ctrl-p)
+            echo "\C-p"
+            ;;
+        ctrl-o)
+            echo "\C-o"
+            ;;
+        ctrl-k)
+            echo "\C-k"
+            ;;
+        alt-c)
+            echo "\ec"
+            ;;
+        alt-a)
+            echo "\ea"
+            ;;
+        alt-s)
+            echo "\es"
+            ;;
+        alt-space)
+            echo "\e "
+            ;;
+        f2)
+            echo "\eOP"
+            ;;
+        f3)
+            echo "\eOQ"
+            ;;
+        f4)
+            echo "\eOR"
+            ;;
+        *)
+            # Return empty if not a known preset
+            echo ""
+            ;;
+    esac
+}
 
 # Determine the key binding to use
-if [[ -n "${BASH_COPILOT_HOTKEY}" ]]; then
-    # Check if it's a preset name
-    if [[ -n "${HOTKEY_PRESETS[${BASH_COPILOT_HOTKEY}]}" ]]; then
-        BASH_COPILOT_KEY="${HOTKEY_PRESETS[${BASH_COPILOT_HOTKEY}]}"
+if [ -n "${BASH_COPILOT_HOTKEY}" ]; then
+    # Try to get preset binding
+    PRESET_BINDING=$(_get_hotkey_binding "${BASH_COPILOT_HOTKEY}")
+
+    if [ -n "$PRESET_BINDING" ]; then
+        # It's a known preset
+        BASH_COPILOT_KEY="$PRESET_BINDING"
         BASH_COPILOT_KEY_DISPLAY="${BASH_COPILOT_HOTKEY}"
     else
         # Assume it's a custom binding sequence
         BASH_COPILOT_KEY="${BASH_COPILOT_HOTKEY}"
         BASH_COPILOT_KEY_DISPLAY="custom (${BASH_COPILOT_HOTKEY})"
     fi
-elif [[ -n "${BASH_COPILOT_KEY}" ]]; then
+elif [ -n "${BASH_COPILOT_KEY}" ]; then
     # Legacy: Support old BASH_COPILOT_KEY variable for backward compatibility
     BASH_COPILOT_KEY_DISPLAY="custom (${BASH_COPILOT_KEY})"
 else
