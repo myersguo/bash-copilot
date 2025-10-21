@@ -181,8 +181,8 @@ def complete_command(args):
     client = OpenAIClient(config.api_key, config.base_uri, config.model)
 
     # Get the partial command from stdin or argument
-    if args.command:
-        partial_command = args.command
+    if args.prompt:
+        partial_command = args.prompt
     else:
         partial_command = sys.stdin.read().strip()
 
@@ -311,7 +311,7 @@ Examples:
 
     # Complete command
     complete_parser = subparsers.add_parser('complete', help='Complete a bash command')
-    complete_parser.add_argument('command', nargs='?', help='Partial command to complete')
+    complete_parser.add_argument('prompt', nargs='?', help='Partial command to complete')
     complete_parser.add_argument('--context', action='store_true', help='Include context information')
 
     # Install command
