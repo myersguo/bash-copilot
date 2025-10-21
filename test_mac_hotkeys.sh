@@ -14,6 +14,38 @@ BLUE='\033[0;34m'
 RED='\033[0;31m'
 NC='\033[0m'
 
+# Check Bash version
+BASH_MAJOR=${BASH_VERSINFO[0]}
+BASH_MINOR=${BASH_VERSINFO[1]}
+
+echo "Bash version: $BASH_VERSION"
+echo ""
+
+if [ "$BASH_MAJOR" -lt 4 ]; then
+    echo -e "${RED}=========================================${NC}"
+    echo -e "${RED}  ⚠️  BASH VERSION TOO OLD  ⚠️${NC}"
+    echo -e "${RED}=========================================${NC}"
+    echo ""
+    echo -e "${YELLOW}Current version: ${NC}$BASH_VERSION"
+    echo -e "${YELLOW}Required version:${NC} Bash 4.0 or higher"
+    echo ""
+    echo -e "${RED}Bash Copilot requires Bash 4.0+ for bind -x support.${NC}"
+    echo -e "${RED}macOS ships with Bash 3.2 which is too old.${NC}"
+    echo ""
+    echo -e "${GREEN}Solution: Install modern Bash with Homebrew${NC}"
+    echo ""
+    echo "Quick fix:"
+    echo "  1. brew install bash"
+    echo "  2. echo \"/opt/homebrew/bin/bash\" | sudo tee -a /etc/shells"
+    echo "  3. chsh -s /opt/homebrew/bin/bash"
+    echo "  4. Restart Terminal"
+    echo ""
+    echo "📚 See BASH_UPGRADE_MAC.md for detailed instructions"
+    echo ""
+    echo -e "${YELLOW}Continuing with tests (will fail)...${NC}"
+    echo ""
+fi
+
 echo -e "${BLUE}Testing hotkey bindings on macOS...${NC}"
 echo ""
 

@@ -29,9 +29,12 @@ Or see the [Quick Start Guide](QUICKSTART.md) and [Troubleshooting Guide](TROUBL
 
 ## Requirements
 
-- Python 3.6+
-- Bash shell (3.2+, works best with 4.0+)
-- OpenAI API key (or compatible API endpoint)
+- **Python 3.6+**
+- **Bash 4.0+** (required for `bind -x` support)
+  - ⚠️ **macOS users:** macOS ships with Bash 3.2 which is **too old**
+  - Install modern Bash: `brew install bash` - See [BASH_UPGRADE_MAC.md](BASH_UPGRADE_MAC.md)
+  - Linux users: Most distributions include Bash 4.0+
+- **OpenAI API key** (or compatible API endpoint)
 
 ## Installation
 

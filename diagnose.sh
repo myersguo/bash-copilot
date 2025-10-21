@@ -31,8 +31,38 @@ print_warning() {
     echo -e "${YELLOW}⚠${NC} $1"
 }
 
-# Check 1: Python version
-echo "1. Checking Python installation..."
+# Check 1: Bash version
+echo "1. Checking Bash version..."
+BASH_MAJOR=${BASH_VERSINFO[0]}
+BASH_MINOR=${BASH_VERSINFO[1]}
+
+if [ "$BASH_MAJOR" -ge 4 ]; then
+    print_check 0 "Bash version: $BASH_VERSION (>= 4.0 required)"
+else
+    print_check 1 "Bash version TOO OLD: $BASH_VERSION"
+    echo "   Required: Bash 4.0 or higher"
+    echo "   Current:  Bash $BASH_VERSION"
+    echo ""
+    echo -e "${RED}⚠️  CRITICAL: Bash Copilot requires Bash 4.0+ for bind -x support${NC}"
+    echo ""
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "   You're on macOS. The default Bash 3.2 is too old."
+        echo "   Install modern Bash:"
+        echo "     brew install bash"
+        echo "     echo \"/opt/homebrew/bin/bash\" | sudo tee -a /etc/shells"
+        echo "     chsh -s /opt/homebrew/bin/bash"
+        echo ""
+        echo "   📚 See BASH_UPGRADE_MAC.md for detailed instructions"
+    else
+        echo "   Update Bash using your package manager:"
+        echo "     Ubuntu/Debian: sudo apt install bash"
+        echo "     CentOS/RHEL: sudo yum update bash"
+    fi
+fi
+echo ""
+
+# Check 2: Python version
+echo "2. Checking Python installation..."
 if command -v python3 &> /dev/null; then
     PYTHON_VERSION=$(python3 --version 2>&1)
     print_check 0 "Python 3 found: $PYTHON_VERSION"
@@ -42,8 +72,8 @@ else
 fi
 echo ""
 
-# Check 2: Script location
-echo "2. Checking script files..."
+# Check 3: Script location
+echo "3. Checking script files..."
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MAIN_SCRIPT="${SCRIPT_DIR}/bash_copilot.py"
 COMPLETION_SCRIPT="${SCRIPT_DIR}/bash_copilot_completion.sh"
@@ -75,8 +105,8 @@ else
 fi
 echo ""
 
-# Check 3: Configuration
-echo "3. Checking configuration..."
+# Check 4: Configuration
+echo "4. Checking configuration..."
 CONFIG_FILE="${HOME}/.bash-copilot.json"
 if [ -f "$CONFIG_FILE" ]; then
     print_check 0 "Config file found: $CONFIG_FILE"
@@ -104,8 +134,8 @@ else
 fi
 echo ""
 
-# Check 4: Bashrc integration
-echo "4. Checking .bashrc integration..."
+# Check 5: Bashrc integration
+echo "5. Checking .bashrc integration..."
 BASHRC="${HOME}/.bashrc"
 if [ -f "$BASHRC" ]; then
     if grep -q "bash_copilot_completion.sh" "$BASHRC" 2>/dev/null; then
@@ -120,8 +150,8 @@ else
 fi
 echo ""
 
-# Check 5: Current shell environment
-echo "5. Checking current shell environment..."
+# Check 6: Current shell environment
+echo "6. Checking current shell environment..."
 if [ -n "$BASH" ]; then
     print_check 0 "Running in bash: $BASH_VERSION"
 else
@@ -139,8 +169,8 @@ else
 fi
 echo ""
 
-# Check 6: Hotkey configuration
-echo "6. Checking hotkey configuration..."
+# Check 7: Hotkey configuration
+echo "7. Checking hotkey configuration..."
 if [ -n "$BASH_COPILOT_HOTKEY" ]; then
     print_info "BASH_COPILOT_HOTKEY is set to: $BASH_COPILOT_HOTKEY"
 elif [ -n "$BASH_COPILOT_KEY" ]; then
@@ -155,8 +185,8 @@ echo "Current bash-copilot related bindings:"
 bind -P 2>/dev/null | grep -i "bash_copilot" || echo "   No bindings found"
 echo ""
 
-# Check 7: Test basic functionality
-echo "7. Testing basic functionality..."
+# Check 8: Test basic functionality
+echo "8. Testing basic functionality..."
 if [ -x "$MAIN_SCRIPT" ]; then
     TEST_OUTPUT=$(echo "list files" | python3 "$MAIN_SCRIPT" complete 2>&1)
     TEST_EXIT=$?
