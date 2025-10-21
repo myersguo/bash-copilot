@@ -146,15 +146,30 @@ echo "compress all images" | bash-copilot complete
 
 ### Change Hotkey
 
-By default, `Ctrl+Space` triggers the completion. To change it, set the `BASH_COPILOT_KEY` environment variable in your `.bashrc`:
+By default, `Ctrl+Space` triggers the completion. You can easily change it to any key combination you prefer.
 
+**View all available hotkeys:**
 ```bash
-# Use Ctrl+P instead
-export BASH_COPILOT_KEY="\C-p"
-
-# Use Alt+C
-export BASH_COPILOT_KEY="\e-c"
+bash-copilot hotkeys
 ```
+
+**Quick change using presets:**
+```bash
+# Add to your ~/.bashrc
+export BASH_COPILOT_HOTKEY=ctrl-g    # Use Ctrl+G
+export BASH_COPILOT_HOTKEY=alt-c     # Use Alt+C
+export BASH_COPILOT_HOTKEY=f2        # Use F2
+
+# Then reload
+source ~/.bashrc
+```
+
+**Available preset hotkeys:**
+- `ctrl-space` (default), `ctrl-g`, `ctrl-p`, `ctrl-o`, `ctrl-k`
+- `alt-c`, `alt-a`, `alt-s`, `alt-space`
+- `f2`, `f3`, `f4`
+
+For detailed hotkey configuration including custom bindings, see [HOTKEYS.md](HOTKEYS.md)
 
 ### Using Different API Providers
 

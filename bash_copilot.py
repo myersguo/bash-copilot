@@ -223,6 +223,70 @@ def install_completion_script(args):
         sys.exit(1)
 
 
+def show_hotkeys(args):
+    """Display available hotkey presets and configuration instructions"""
+    print("=== Bash Copilot Hotkey Configuration ===\n")
+
+    # Hotkey presets table
+    hotkeys = [
+        ("ctrl-space", "Ctrl+Space", "Default hotkey"),
+        ("ctrl-g", "Ctrl+G", "Good alternative"),
+        ("ctrl-p", "Ctrl+P", "Similar to IDE autocomplete"),
+        ("ctrl-o", "Ctrl+O", "Alternative Ctrl key"),
+        ("ctrl-k", "Ctrl+K", "Vim-style navigation"),
+        ("alt-c", "Alt+C", "Alt key variant"),
+        ("alt-a", "Alt+A", "Alt key variant"),
+        ("alt-s", "Alt+S", "Alt key variant"),
+        ("alt-space", "Alt+Space", "Alt+Space combination"),
+        ("f2", "F2", "Function key"),
+        ("f3", "F3", "Function key"),
+        ("f4", "F4", "Function key"),
+    ]
+
+    print("Available Hotkey Presets:")
+    print("-" * 60)
+    print(f"{'Preset Name':<15} {'Keys':<20} {'Description':<25}")
+    print("-" * 60)
+    for preset, keys, desc in hotkeys:
+        print(f"{preset:<15} {keys:<20} {desc:<25}")
+    print("-" * 60)
+
+    print("\nHow to Change Hotkey:\n")
+    print("1. Using a preset (recommended):")
+    print("   Add to your ~/.bashrc:")
+    print("   export BASH_COPILOT_HOTKEY=ctrl-g")
+    print("")
+    print("2. Using a custom binding:")
+    print("   Add to your ~/.bashrc:")
+    print("   export BASH_COPILOT_HOTKEY='\\C-x'  # for Ctrl+X")
+    print("   export BASH_COPILOT_HOTKEY='\\ea'   # for Alt+A")
+    print("")
+    print("3. After editing ~/.bashrc, reload it:")
+    print("   source ~/.bashrc")
+    print("")
+
+    print("Common Key Binding Sequences:")
+    print("-" * 60)
+    print("  \\C-x   = Ctrl+X")
+    print("  \\ex    = Alt+X (or Esc followed by X)")
+    print("  \\e     = Escape/Alt")
+    print("  \\C-@   = Ctrl+Space")
+    print("")
+
+    current_hotkey = os.environ.get('BASH_COPILOT_HOTKEY', 'ctrl-space (default)')
+    print(f"Current hotkey setting: {current_hotkey}")
+    print("")
+
+    print("Example ~/.bashrc configuration:")
+    print("-" * 60)
+    print("# Set Bash Copilot hotkey to Ctrl+G")
+    print("export BASH_COPILOT_HOTKEY=ctrl-g")
+    print("")
+    print("# Or use Alt+C instead")
+    print("export BASH_COPILOT_HOTKEY=alt-c")
+    print("-" * 60)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Bash Copilot - AI-powered bash command completion',
@@ -253,6 +317,9 @@ Examples:
     # Install command
     install_parser = subparsers.add_parser('install', help='Install bash completion script')
 
+    # Hotkeys command
+    hotkeys_parser = subparsers.add_parser('hotkeys', help='Show available hotkey presets')
+
     args = parser.parse_args()
 
     if not args.command:
@@ -265,6 +332,8 @@ Examples:
         complete_command(args)
     elif args.command == 'install':
         install_completion_script(args)
+    elif args.command == 'hotkeys':
+        show_hotkeys(args)
 
 
 if __name__ == '__main__':
