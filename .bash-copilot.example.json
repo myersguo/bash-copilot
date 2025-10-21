@@ -1,0 +1,5 @@
+{
+  "api_key": "sk-your-openai-api-key-here",
+  "base_uri": "https://api.openai.com/v1",
+  "model": "gpt-3.5-turbo"
+}
